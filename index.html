@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurumi — العين التي تسهر على سيرفرك</title>
+<meta name="description" content="Kurumi — تذاكر دعم، حماية ذكية، نظام مستويات، ذكاء اصطناعي، سحوبات، وأكثر من 95 أمر — كل شي يحتاجه سيرفرك بمكان واحد.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c090a;
+  --bg-elev:#161012;
+  --bg-elev-2:#1f1517;
+  --border:#2e1d20;
+  --border-soft:#241719;
+  --text:#ece4e2;
+  --muted:#9c8a8a;
+  --blood:#7a0c1e;
+  --blood-bright:#e8344f;
+  --gold:#a9854f;
+  --display:'Cinzel',serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.65;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+img{max-width:100%;display:block;}
+
+/* ---------- ambient background: smoldering ember field ---------- */
+.bg-ember{
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(ellipse 620px 480px at 14% -8%, rgba(122,12,30,.38), transparent 62%),
+    radial-gradient(ellipse 520px 460px at 102% 18%, rgba(122,12,30,.22), transparent 60%),
+    radial-gradient(ellipse 700px 420px at 50% 115%, rgba(169,133,79,.08), transparent 60%),
+    var(--bg);
+}
+.bg-vignette{
+  position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 1100px 800px at 50% 0%, transparent 50%, rgba(0,0,0,.55) 100%);
+  pointer-events:none;
+}
+.bg-grain{
+  position:fixed;inset:0;z-index:-1;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- nav ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(12,9,10,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border-soft);
+}
+nav{display:flex;align-items:center;justify-content:space-between;height:76px;}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:1.3rem;letter-spacing:.5px;}
+.brand .eye{
+  width:13px;height:13px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #ff8a9a, var(--blood-bright) 45%, var(--blood) 80%);
+  box-shadow:0 0 10px 2px rgba(232,52,79,.55), 0 0 0 3px rgba(122,12,30,.18);
+  animation:eyeglow 3.2s ease-in-out infinite;
+}
+@keyframes eyeglow{0%,100%{box-shadow:0 0 10px 2px rgba(232,52,79,.55),0 0 0 3px rgba(122,12,30,.18);}50%{box-shadow:0 0 16px 5px rgba(232,52,79,.8),0 0 0 5px rgba(122,12,30,.1);}}
+.navlinks{display:flex;gap:34px;font-size:.93rem;color:var(--muted);}
+.navlinks a{transition:color .15s;position:relative;}
+.navlinks a:hover{color:var(--text);}
+.nav-cta{display:flex;gap:10px;}
+@media (max-width:760px){ .navlinks{display:none;} }
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:3px;
+  font-weight:600;font-size:.92rem;
+  border:1px solid transparent;cursor:pointer;
+  transition:transform .15s, box-shadow .15s, background .15s, border-color .15s;
+  white-space:nowrap;font-family:var(--body);
+}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:linear-gradient(135deg, var(--blood-bright), var(--blood) 80%);color:#fff;box-shadow:0 8px 26px -8px rgba(232,52,79,.55);}
+.btn-primary:hover{box-shadow:0 10px 30px -6px rgba(232,52,79,.75);}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--text);}
+.btn-ghost:hover{border-color:var(--blood-bright);}
+.btn-sm{padding:9px 18px;font-size:.84rem;}
+
+/* ---------- hero ---------- */
+.hero{padding:80px 0 56px;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;}
+@media (max-width:920px){ .hero-grid{grid-template-columns:1fr;} }
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:.74rem;color:var(--blood-bright);letter-spacing:.5px;
+  background:rgba(122,12,30,.1);border:1px solid rgba(232,52,79,.25);
+  padding:6px 13px;border-radius:2px;margin-bottom:24px;
+}
+.eyebrow .ping{width:6px;height:6px;border-radius:50%;background:var(--blood-bright);box-shadow:0 0 6px 1px rgba(232,52,79,.7);}
+h1{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(2.1rem,4.2vw,3.3rem);
+  line-height:1.28;letter-spacing:.5px;margin-bottom:20px;
+}
+h1 .accent{color:var(--blood-bright);}
+.hero p.lead{color:var(--muted);font-size:1.08rem;max-width:500px;margin-bottom:34px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px;}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;color:var(--muted);font-size:.84rem;font-family:var(--mono);}
+.hero-meta b{color:var(--text);font-family:var(--body);font-weight:700;}
+
+/* sigil panel — signature element replacing the generic terminal */
+.sigil-panel{
+  position:relative;
+  background:var(--bg-elev);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 30px 70px -32px rgba(0,0,0,.85), 0 0 60px -20px rgba(122,12,30,.25);
+}
+.sigil-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 18px;border-bottom:1px solid var(--border-soft);
+  background:var(--bg-elev-2);
+}
+.sigil-bar .rune{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:1px;margin-right:auto;}
+.sigil-bar .dot{width:7px;height:7px;border-radius:50%;background:var(--border);}
+.sigil-bar .dot.live{background:var(--blood-bright);box-shadow:0 0 6px 1px rgba(232,52,79,.7);}
+
+.sigil-core{
+  position:relative;padding:46px 30px 30px;
+  display:flex;flex-direction:column;align-items:center;gap:22px;
+  min-height:300px;justify-content:center;
+}
+.eye-figure{position:relative;width:128px;height:128px;}
+.eye-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(169,133,79,.5);
+}
+.eye-ring.r2{inset:10px;border-color:rgba(232,52,79,.35);animation:spin 22s linear infinite;}
+.eye-ring.r3{inset:20px;border-color:rgba(169,133,79,.3);border-style:dashed;animation:spin 30s linear infinite reverse;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.eye-core{
+  position:absolute;inset:38px;border-radius:50%;
+  background:radial-gradient(circle at 38% 35%, #ffb3bf 0%, var(--blood-bright) 38%, var(--blood) 72%, #2a0610 100%);
+  box-shadow:0 0 30px 6px rgba(232,52,79,.45), inset 0 0 14px rgba(0,0,0,.4);
+  animation:pulse-eye 3.6s ease-in-out infinite;
+}
+@keyframes pulse-eye{0%,100%{box-shadow:0 0 30px 6px rgba(232,52,79,.45), inset 0 0 14px rgba(0,0,0,.4);}50%{box-shadow:0 0 44px 12px rgba(232,52,79,.65), inset 0 0 18px rgba(0,0,0,.5);}}
+.eye-core::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, transparent 35%, rgba(0,0,0,.65) 60%, transparent 75%);
+}
+.sigil-caption{font-family:var(--mono);font-size:.76rem;color:var(--muted);text-align:center;letter-spacing:.3px;}
+.sigil-caption b{color:var(--gold);font-weight:600;}
+
+.stat-row{display:flex;gap:0;border-top:1px solid var(--border-soft);}
+.stat-chip{flex:1;padding:18px 14px;text-align:center;border-right:1px solid var(--border-soft);}
+.stat-chip:last-child{border-right:none;}
+.stat-chip .num{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--text);}
+.stat-chip .lbl{font-size:.7rem;color:var(--muted);font-family:var(--mono);margin-top:4px;}
+
+/* ---------- sections ---------- */
+section{padding:88px 0;}
+.section-head{text-align:center;max-width:600px;margin:0 auto 54px;}
+.section-head .eyebrow{display:inline-flex;}
+.section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.3rem);margin-bottom:14px;letter-spacing:.4px;}
+.section-head p{color:var(--muted);font-size:1.02rem;}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media (max-width:900px){.features{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:620px){.features{grid-template-columns:1fr;}}
+.feature{
+  position:relative;
+  background:var(--bg-elev);border:1px solid var(--border-soft);
+  border-radius:6px;padding:28px 24px;transition:border-color .25s, transform .25s;
+  overflow:hidden;
+}
+.feature::before{
+  content:"";position:absolute;top:0;right:0;width:60px;height:60px;
+  background:radial-gradient(circle at 100% 0%, rgba(232,52,79,.16), transparent 70%);
+  opacity:0;transition:opacity .25s;
+}
+.feature:hover{border-color:rgba(232,52,79,.4);transform:translateY(-3px);}
+.feature:hover::before{opacity:1;}
+.feature .ic{font-size:1.5rem;margin-bottom:15px;display:block;}
+.feature h3{font-family:var(--display);font-weight:600;font-size:1.04rem;margin-bottom:9px;letter-spacing:.2px;}
+.feature p{color:var(--muted);font-size:.89rem;}
+
+/* commands */
+.cmd-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;align-items:center;}
+.cmd-search{
+  flex:1;min-width:220px;background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:4px;padding:13px 16px;color:var(--text);font-family:var(--body);font-size:.95rem;
+}
+.cmd-search:focus{outline:none;border-color:var(--blood-bright);}
+.cmd-search::placeholder{color:var(--muted);}
+.cmd-count{font-family:var(--mono);font-size:.8rem;color:var(--muted);white-space:nowrap;}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px;}
+.chip{
+  font-size:.8rem;padding:8px 15px;border-radius:3px;border:1px solid var(--border);
+  background:var(--bg-elev);color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--body);
+}
+.chip:hover{border-color:var(--blood-bright);color:var(--text);}
+.chip.active{background:var(--blood);border-color:var(--blood);color:#fff;}
+.cmd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;}
+@media (max-width:760px){.cmd-grid{grid-template-columns:1fr;}}
+.cmd-card{
+  background:var(--bg-elev);border:1px solid var(--border-soft);border-radius:5px;
+  padding:16px 18px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s;
+}
+.cmd-card:hover{border-color:var(--border);}
+.cmd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.cmd-name{font-family:var(--mono);font-weight:600;color:var(--blood-bright);font-size:.93rem;}
+.cmd-tag{font-size:.66rem;font-family:var(--mono);color:var(--gold);border:1px solid rgba(169,133,79,.4);background:rgba(169,133,79,.08);padding:2px 8px;border-radius:3px;white-space:nowrap;}
+.cmd-desc{color:var(--muted);font-size:.85rem;}
+.cmd-cat{font-size:.7rem;color:var(--muted);font-family:var(--mono);opacity:.65;}
+.cmd-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0;font-family:var(--mono);}
+
+/* cta band */
+.cta-band{
+  position:relative;
+  background:linear-gradient(160deg, rgba(122,12,30,.22), rgba(12,9,10,.4));
+  border:1px solid var(--border);border-radius:8px;
+  padding:58px 40px;text-align:center;overflow:hidden;
+}
+.cta-band::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(232,52,79,.18), transparent 60%);
+}
+.cta-band h2{position:relative;font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,2.8vw,2rem);margin-bottom:13px;letter-spacing:.4px;}
+.cta-band p{position:relative;color:var(--muted);margin-bottom:30px;}
+.cta-actions{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+footer{border-top:1px solid var(--border-soft);padding:38px 0;}
+.foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.84rem;}
+.foot-links{display:flex;gap:22px;}
+:focus-visible{outline:2px solid var(--blood-bright);outline-offset:2px;}
+</style>
+</head>
+<body>
+<div class="bg-ember"></div>
+<div class="bg-vignette"></div>
+<div class="bg-grain"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="eye"></span> Kurumi</div>
+    <div class="navlinks">
+      <a href="#features">المميزات</a>
+      <a href="#commands">الأوامر</a>
+      <a href="#cta">الدعم</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" id="support-link" href="#" target="_blank" rel="noopener">سيرفر الدعم</a>
+      <a class="btn btn-primary btn-sm" id="invite-link-top" href="#" target="_blank" rel="noopener">أضف البوت</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="ping"></span> ساهرة منذ آخر إعادة تشغيل</div>
+        <h1>عين واحدة تكفي<br>لتسهر على سيرفرك <span class="accent">كله</span>.</h1>
+        <p class="lead">تذاكر دعم، حماية ضد الريد، نظام مستويات، ذكاء اصطناعي، سحوبات واستطلاعات — أكثر من 95 أمر جاهز بضغطة، يعملون من تحت بصرها.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="invite-link-hero" href="#" target="_blank" rel="noopener">＋ أضف البوت لسيرفرك</a>
+          <a class="btn btn-ghost" href="#commands">عرض كل الأوامر</a>
+        </div>
+        <div class="hero-meta">
+          <div><b id="meta-servers">—</b> سيرفر</div>
+          <div><b id="meta-members">—</b> عضو</div>
+          <div><b>96</b> أمر</div>
+        </div>
+      </div>
+
+      <div class="sigil-panel">
+        <div class="sigil-bar">
+          <span class="dot live"></span><span class="dot"></span><span class="dot"></span>
+          <span class="rune">حالة الرصد: نشطة</span>
+        </div>
+        <div class="sigil-core">
+          <div class="eye-figure">
+            <div class="eye-ring r2"></div>
+            <div class="eye-ring r3"></div>
+            <div class="eye-core"></div>
+          </div>
+          <div class="sigil-caption" id="boot-caption">جاري الاتصال بـ <b>Discord Gateway</b>…</div>
+        </div>
+        <div class="stat-row" id="stat-row">
+          <div class="stat-chip"><div class="num" id="stat-servers">—</div><div class="lbl">سيرفر</div></div>
+          <div class="stat-chip"><div class="num" id="stat-members">—</div><div class="lbl">عضو</div></div>
+          <div class="stat-chip"><div class="num" id="stat-ping">—</div><div class="lbl">البنق</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow"><span class="ping"></span> المميزات</div>
+        <h2>مبني لإدارة سيرفر حقيقي</h2>
+        <p>ما هو بوت زخرفة — كل ميزة هنا تحل مشكلة فعلية بسيرفرات الديسكورد.</p>
+      </div>
+      <div class="features">
+        <div class="feature"><span class="ic">🎫</span><h3>نظام تذاكر متكامل</h3><p>أنواع متعددة، استلام وتحويل، تقييم المشرف بعد الإغلاق، وتسجيل كامل لكل تذكرة.</p></div>
+        <div class="feature"><span class="ic">🛡️</span><h3>حماية ذكية</h3><p>أوتومود قابل للتخصيص، حماية ضد الريد والتخريب، وعقوبات تلقائية.</p></div>
+        <div class="feature"><span class="ic">📈</span><h3>نظام مستويات</h3><p>XP عند التفاعل، رتب مكافآت تلقائية عند كل فل جديد.</p></div>
+        <div class="feature"><span class="ic">🧠</span><h3>ذكاء اصطناعي</h3><p>يرد عند المنشن بذكاء، قابل للتفعيل أو التعطيل لكل سيرفر لحاله.</p></div>
+        <div class="feature"><span class="ic">🎉</span><h3>سحوبات واستطلاعات</h3><p>سحوبات بفائزين متعددين، إعادة سحب، واستطلاعات تفاعلية بضغطة زر.</p></div>
+        <div class="feature"><span class="ic">📋</span><h3>سجلات شاملة</h3><p>سجل لكل شي — إشراف، رسائل، رومات، رتب — كل فئة بروم مستقل لو حبيت.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="commands">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow"><span class="ping"></span> قائمة الأوامر</div>
+        <h2>96 أمر، كل واحد له شغلة</h2>
+        <p>دوّر بالاسم أو فلتر حسب الفئة.</p>
+      </div>
+
+      <div class="cmd-toolbar">
+        <input class="cmd-search" id="cmd-search" type="text" placeholder="دوّر عن أمر... مثل: تذاكر، حماية، ترحيب">
+        <div class="cmd-count" id="cmd-count"></div>
+      </div>
+      <div class="chip-row" id="chip-row">
+        <button class="chip active" data-cat="all">الكل</button>
+        <button class="chip" data-cat="🛠️ عام">🛠️ عام</button>
+        <button class="chip" data-cat="🎫 التذاكر">🎫 التذاكر</button>
+        <button class="chip" data-cat="🎭 الرتب">🎭 الرتب</button>
+        <button class="chip" data-cat="👋 الترحيب والوداع">👋 الترحيب والوداع</button>
+        <button class="chip" data-cat="💬 الردود والأوامر المخصصة">💬 الردود والأوامر المخصصة</button>
+        <button class="chip" data-cat="🤖 الحماية الذكية">🤖 الحماية الذكية</button>
+        <button class="chip" data-cat="📝 التقديمات والتحقق">📝 التقديمات والتحقق</button>
+        <button class="chip" data-cat="📊 المعلومات والإحصائيات">📊 المعلومات والإحصائيات</button>
+        <button class="chip" data-cat="📈 المستويات">📈 المستويات</button>
+        <button class="chip" data-cat="📋 السجلات">📋 السجلات</button>
+        <button class="chip" data-cat="🛡️ الإشراف">🛡️ الإشراف</button>
+        <button class="chip" data-cat="🧠 الذكاء الاصطناعي">🧠 الذكاء الاصطناعي</button>
+        <button class="chip" data-cat="⏰ الجدولة والمناسبات">⏰ الجدولة والمناسبات</button>
+        <button class="chip" data-cat="🎉 السحوبات والاستطلاعات">🎉 السحوبات والاستطلاعات</button>
+      </div>
+      <div class="cmd-grid" id="cmd-grid"></div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>جاهز تطوّر سيرفرك؟</h2>
+        <p>أضف Kurumi الحين — التفعيل أقل من دقيقة.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" id="invite-link-bottom" href="#" target="_blank" rel="noopener">＋ أضف البوت لسيرفرك</a>
+          <a class="btn btn-ghost" id="support-link-bottom" href="#" target="_blank" rel="noopener">سيرفر الدعم</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>© <span id="year"></span> Kurumi</div>
+    <div class="foot-links">
+      <a href="#features">المميزات</a>
+      <a href="#commands">الأوامر</a>
+      <a id="support-link-foot" href="#" target="_blank" rel="noopener">الدعم</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   إعدادات — عدّل هذي القيم بالضبط حسب بوتك
+   ============================================================ */
+const CONFIG = {
+  CLIENT_ID: "1506166340942303232",
+  PERMISSIONS: "8",
+  STATS_API_URL: "https://my-discord-bot-production-2216.up.railway.app/api/stats",
+  SUPPORT_SERVER_URL: "https://discord.gg/zdpch4PdF",
+};
+
+const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${CONFIG.CLIENT_ID}&scope=bot%20applications.commands&permissions=${CONFIG.PERMISSIONS}`;
+["invite-link-top","invite-link-hero","invite-link-bottom"].forEach(id=>{
+  const el = document.getElementById(id); if (el) el.href = INVITE_URL;
+});
+["support-link","support-link-bottom","support-link-foot"].forEach(id=>{
+  const el = document.getElementById(id); if (el) el.href = CONFIG.SUPPORT_SERVER_URL;
+});
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ---------- sigil caption sequence (replaces generic boot terminal) ---------- */
+const captions = [
+  "جاري الاتصال بـ <b>Discord Gateway</b>…",
+  "تم تأكيد الهوية. <b>96</b> أمر جاهز.",
+  "نظام الحماية <b>نشط</b> ويرصد كل حركة.",
+  "نظام التذاكر <b>جاهز</b> لاستقبال الأعضاء.",
+  "كل شي تحت السيطرة. ترقب فقط.",
+];
+let ci = 0;
+const capEl = document.getElementById("boot-caption");
+function cycleCaption(){
+  capEl.style.opacity = 0;
+  setTimeout(() => {
+    ci = (ci + 1) % captions.length;
+    capEl.innerHTML = captions[ci];
+    capEl.style.opacity = 1;
+  }, 380);
+}
+capEl.style.transition = "opacity .38s";
+setInterval(cycleCaption, 3400);
+
+/* ---------- live stats ---------- */
+async function loadStats(){
+  if (!CONFIG.STATS_API_URL) return;
+  try{
+    const res = await fetch(CONFIG.STATS_API_URL, { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    document.getElementById("meta-servers").textContent = (data.servers ?? "—").toLocaleString("ar");
+    document.getElementById("meta-members").textContent = (data.members ?? "—").toLocaleString("ar");
+    document.getElementById("stat-servers").textContent = data.servers ?? "—";
+    document.getElementById("stat-members").textContent = (data.members ?? 0).toLocaleString("ar");
+    document.getElementById("stat-ping").textContent = data.pingMs ? data.pingMs + "ms" : "—";
+  }catch(e){ /* الموقع يشتغل عادي حتى لو فشل جلب الإحصائيات الحية */ }
+}
+loadStats();
+
+/* ---------- commands list ---------- */
+const COMMANDS = [{"name":"help","description":"قائمة أوامر البوت المنظّمة بأزرار تفاعلية","category":"🛠️ عام","adminOnly":false},{"name":"setup","description":"إرسال لوحة التذاكر في القناة الحالية","category":"🎫 التذاكر","adminOnly":false},{"name":"setup_tickets","description":"إعداد نظام التذاكر الكامل (الإعداد الافتراضي العام)","category":"🎫 التذاكر","adminOnly":false},{"name":"ticket_type_add","description":"إضافة نوع تذكرة مخصص (مثل: شكاوي، فعاليات) بكاتيغوري ورتبة خاصة","category":"🎫 التذاكر","adminOnly":true},{"name":"ticket_type_remove","description":"حذف نوع تذكرة مخصص","category":"🎫 التذاكر","adminOnly":true},{"name":"ticket_type_list","description":"عرض جميع أنواع التذاكر المُعدّة","category":"🎫 التذاكر","adminOnly":false},{"name":"ticket_panel","description":"لوحة تحكم التذاكر الكاملة بأمر واحد — إضافة/حذف الأنواع، المظهر، الشكل، والنشر","category":"🎫 التذاكر","adminOnly":true},{"name":"role_panel","description":"إنشاء لوحة رتب ذاتية بأمر واحد — تفاعل/قائمة/أزرار","category":"🎭 الرتب","adminOnly":true},{"name":"setup_welcome","description":"إعداد رسالة الترحيب","category":"👋 الترحيب والوداع","adminOnly":false},{"name":"embed","description":"إرسال إمبيد مخصص لروم معيّن (مع صورة وزر اختياري)","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"embed_edit","description":"تعديل إمبيد سابق أرسله البوت (يطلع نموذج معبّى بالقيم الحالية)","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"say","description":"تكتب الكلام وينرسل من البوت نفسه بالروم","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"set_command_alias","description":"إنشاء اختصارات لأمر إداري (تكتب الاختصار مباشرة بدون %)","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"toggle_automod","description":"تفعيل/تعطيل نظام الحماية التلقائية (أوتومود)","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"set_automod_mute_minutes","description":"تحديد مدة الكتم التلقائي بعد 3 تحذيرات أوتومود","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"automod_filters","description":"تشغيل/تعطيل فلتر معيّن من فلاتر الأوتومود","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"automod_badwords","description":"إدارة قائمة الكلمات المحظورة بالأوتومود","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"automod_spam_config","description":"تحديد حساسية فلتر السبام (عدد الرسائل المسموحة خلال فترة زمنية)","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"setup_apply","description":"إعداد نظام التقديمات (الروم اللي تستقبل التقديمات + الأسئلة)","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"apply_builder","description":"بناء لوحة تقديم مخصصة بالكامل — صور وإمبيد حر (استخدم setup_apply أولاً)","category":"📝 التقديمات والتحقق","adminOnly":true},{"name":"setup_verification","description":"إرسال رسالة التحقق في روم محدد","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"setup_starboard","description":"إعداد الـ Starboard","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"setup_stats","description":"إنشاء قنوات إحصائيات تلقائية","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"setup_levels","description":"إعداد نظام اللفلات (XP)","category":"📈 المستويات","adminOnly":true},{"name":"set_log_channel","description":"تعيين روم السجلات العام (الافتراضي لكل الفئات اللي بدون روم مستقل)","category":"📋 السجلات","adminOnly":false},{"name":"log_settings","description":"إدارة فئات السجلات (تفعيل/تعطيل + روم مستقل لكل فئة)","category":"📋 السجلات","adminOnly":true},{"name":"log_settings_show","description":"عرض إعدادات كل فئات السجلات الحالية","category":"📋 السجلات","adminOnly":false},{"name":"antiraid_setup","description":"إعداد نظام الحماية ضد الريد","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"antiraid_toggle","description":"تفعيل/تعطيل نظام الحماية ضد الريد","category":"🤖 الحماية الذكية","adminOnly":false},{"name":"antiraid_status","description":"عرض حالة نظام الحماية ضد الريد الحالية","category":"🤖 الحماية الذكية","adminOnly":false},{"name":"antinuke_whitelist","description":"إدارة الرتب المعفاة من نظام الحماية ضد التخريب (تقدر تسوي أي شي بدون عقوبة)","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"antinuke_punishment","description":"تحديد عقوبة من يتجاوز حد الحماية ضد التخريب (حذف رومات/رتب أو حظر/طرد جماعي)","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"set_welcome_channel","description":"تعيين روم الترحيب بالإمبيد","category":"👋 الترحيب والوداع","adminOnly":false},{"name":"set_welcome_2","description":"تعيين روم الترحيب النصي","category":"👋 الترحيب والوداع","adminOnly":false},{"name":"set_archive_channel","description":"تعيين روم أرشيف التذاكر","category":"🎫 التذاكر","adminOnly":false},{"name":"set_top_channel","description":"تعيين روم Top","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"set_applications_channel","description":"تعيين روم استلام التقديمات","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"set_temp_roles_channel","description":"تعيين روم الرتب المؤقتة","category":"🎭 الرتب","adminOnly":false},{"name":"set_temp_role_issue_channel","description":"تعيين روم مشاكل الرتب المؤقتة","category":"🎭 الرتب","adminOnly":false},{"name":"set_ticket_ping_role","description":"تعيين رتبة منشن التذاكر","category":"🎫 التذاكر","adminOnly":false},{"name":"set_application_ping_role","description":"تعيين رتبة منشن التقديمات","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"set_defulet_make_me_role","description":"الرتبة الافتراضية لأمر Make Me","category":"🎭 الرتب","adminOnly":false},{"name":"add_auto_reply","description":"إضافة رد تلقائي","category":"💬 الردود والأوامر المخصصة","adminOnly":false},{"name":"remove_auto_reply","description":"حذف رد تلقائي","category":"💬 الردود والأوامر المخصصة","adminOnly":false},{"name":"list_auto_replies","description":"عرض جميع الردود التلقائية","category":"💬 الردود والأوامر المخصصة","adminOnly":false},{"name":"stats","description":"عرض إحصائيات البوت والسيرفر","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"invites","description":"عرض عدد دعوات عضو (الفعلية، المشبوهة، اللي طلعوا)","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"invites_leaderboard","description":"عرض توب 10 الأكثر دعوة بالسيرفر","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"ticket_builder","description":"بناء لوحة تذاكر مخصصة بالكامل — صور وإمبيد حر","category":"🎫 التذاكر","adminOnly":true},{"name":"toggle_logging","description":"تفعيل/تعطيل السجلات","category":"📋 السجلات","adminOnly":false},{"name":"bot_toggle","description":"تفعيل/تعطيل البوت كاملاً","category":"🛡️ الإشراف","adminOnly":false},{"name":"toggle_ai","description":"تفعيل/تعطيل سوالفة الذكاء الاصطناعي (يرد عند المنشن أو الرد على رسالة البوت)","category":"🧠 الذكاء الاصطناعي","adminOnly":true},{"name":"ai_channel","description":"تحكم في روم الـ AI — حدد روم واحد يرد فيه البوت أو اشيله","category":"🧠 الذكاء الاصطناعي","adminOnly":true},{"name":"leave_server","description":"(لصاحب البوت فقط) يخرج البوت من سيرفر معيّن بالـ ID","category":"🛠️ عام","adminOnly":false},{"name":"dashboard","description":"عرض لوحة تحكم البوت الشاملة","category":"🛠️ عام","adminOnly":false},{"name":"reset","description":"تصفير جميع إعدادات البوت","category":"🛡️ الإشراف","adminOnly":true},{"name":"purge","description":"مسح رسائل من الروم بفلاتر اختيارية (عضو / نص / بوتات فقط)","category":"🛡️ الإشراف","adminOnly":true},{"name":"delete_channel","description":"حذف روم فوراً، أو جدولة حذفه بعد مدة محددة","category":"🛡️ الإشراف","adminOnly":true},{"name":"scheduled_tasks","description":"عرض المهام المؤقتة الجارية حالياً (حظر مؤقت، حذف روم مجدول...)","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"cancel_scheduled_task","description":"إلغاء مهمة مؤقتة قبل تنفيذها","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"giveaway","description":"بدء سحب جديد في الروم الحالي","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"giveaway_end","description":"إنهاء سحب نشط فوراً واختيار الفائزين","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"giveaway_reroll","description":"إعادة سحب فائز جديد لسحب منتهي","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"giveaway_list","description":"عرض السحوبات النشطة حالياً","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"poll","description":"إنشاء استطلاع رأي تفاعلي","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"poll_end","description":"إنهاء استطلاع قبل موعده","category":"🎉 السحوبات والاستطلاعات","adminOnly":true},{"name":"setup_reports","description":"تعيين روم البلاغات السرية","category":"📝 التقديمات والتحقق","adminOnly":true},{"name":"report","description":"إرسال بلاغ سري عن عضو للمشرفين","category":"📝 التقديمات والتحقق","adminOnly":false},{"name":"level_reward_add","description":"إضافة رتبة مكافأة عند الوصول لفل معين","category":"📈 المستويات","adminOnly":true},{"name":"level_reward_remove","description":"حذف مكافأة فل","category":"📈 المستويات","adminOnly":true},{"name":"level_reward_list","description":"عرض جميع مكافآت الفلات","category":"📈 المستويات","adminOnly":false},{"name":"ticket_ratings_toggle","description":"تفعيل/تعطيل تقييم التذاكر بعد الإغلاق","category":"🎫 التذاكر","adminOnly":true},{"name":"ticket_ratings_channel","description":"تعيين روم عرض تقييمات التذاكر","category":"🎫 التذاكر","adminOnly":true},{"name":"ticket_ratings_stats","description":"عرض إحصائيات تقييمات التذاكر","category":"🎫 التذاكر","adminOnly":true},{"name":"athkar_setup","description":"إعداد نظام الأذكار التلقائي","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"athkar_stop","description":"إيقاف نظام الأذكار التلقائي","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"athkar_status","description":"عرض إعدادات نظام الأذكار الحالية","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"setup_farewell","description":"إعداد رسالة وداع عند خروج عضو","category":"👋 الترحيب والوداع","adminOnly":true},{"name":"farewell_disable","description":"تعطيل رسالة الوداع","category":"👋 الترحيب والوداع","adminOnly":true},{"name":"automod_whitelist","description":"إدارة استثناءات الأوتومود (رتب أو قنوات معفاة)","category":"🤖 الحماية الذكية","adminOnly":true},{"name":"userinfo","description":"عرض معلومات عضو بالتفصيل","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"serverinfo","description":"عرض معلومات السيرفر","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"botinfo","description":"عرض معلومات البوت (ping، uptime، ...)","category":"📊 المعلومات والإحصائيات","adminOnly":false},{"name":"roleinfo","description":"عرض معلومات رتبة","category":"🎭 الرتب","adminOnly":false},{"name":"bulk_role","description":"إعطاء أو سحب رتبة من مجموعة أعضاء دفعة واحدة","category":"🛡️ الإشراف","adminOnly":true},{"name":"setup_birthday","description":"إعداد نظام أعياد الميلاد","category":"⏰ الجدولة والمناسبات","adminOnly":true},{"name":"set_birthday","description":"سجّل تاريخ ميلادك","category":"⏰ الجدولة والمناسبات","adminOnly":false},{"name":"remove_birthday","description":"حذف تاريخ ميلادك المسجّل","category":"⏰ الجدولة والمناسبات","adminOnly":false},{"name":"custom_command_add","description":"إضافة أمر مخصص بالبريفيكس","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"custom_command_remove","description":"حذف أمر مخصص","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"custom_command_list","description":"عرض جميع الأوامر المخصصة","category":"💬 الردود والأوامر المخصصة","adminOnly":false},{"name":"custom_command_prefix","description":"تغيير بريفيكس الأوامر المخصصة (افتراضي: !)","category":"💬 الردود والأوامر المخصصة","adminOnly":true},{"name":"dm_welcome_set","description":"إعداد رسالة ترحيب تُرسل بالخاص لكل عضو جديد","category":"👋 الترحيب والوداع","adminOnly":true},{"name":"dm_welcome_toggle","description":"تفعيل/تعطيل رسالة الترحيب بالخاص","category":"👋 الترحيب والوداع","adminOnly":true},{"name":"set_boost_message","description":"تعيين رسالة شكر تُرسل عند بوست السيرفر","category":"👋 الترحيب والوداع","adminOnly":true},{"name":"ticket_settings","description":"إعدادات إضافية للتذاكر","category":"🎫 التذاكر","adminOnly":true}];
+const grid = document.getElementById("cmd-grid");
+const countEl = document.getElementById("cmd-count");
+const searchEl = document.getElementById("cmd-search");
+let activeCat = "all";
+
+function render(){
+  const q = searchEl.value.trim().toLowerCase();
+  const filtered = COMMANDS.filter(c => {
+    const matchCat = activeCat === "all" || c.category === activeCat;
+    const matchQ = !q || c.name.toLowerCase().includes(q) || c.description.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  countEl.textContent = filtered.length + " / " + COMMANDS.length;
+  grid.innerHTML = filtered.length ? filtered.map(c => `
+    <div class="cmd-card">
+      <div class="cmd-top">
+        <span class="cmd-name">/${c.name}</span>
+        ${c.adminOnly ? '<span class="cmd-tag">للإدارة فقط</span>' : ""}
+      </div>
+      <div class="cmd-desc">${c.description}</div>
+      <div class="cmd-cat">${c.category}</div>
+    </div>`).join("") : '<div class="cmd-empty">ما فيه أوامر تطابق البحث</div>';
+}
+searchEl.addEventListener("input", render);
+document.getElementById("chip-row").addEventListener("click", (e) => {
+  const btn = e.target.closest(".chip");
+  if (!btn) return;
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  activeCat = btn.dataset.cat;
+  render();
+});
+render();
+</script>
+</body>
+</html>
